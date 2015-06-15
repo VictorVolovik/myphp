@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>query</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/phpMM.css">
+	</head>
+	<body>
+		<div id="header">
+			<h1>PHP &amp; MySQL: The Missing Manual</h1>
+		</div>
+		<div id="example">
+			Пример 4.2
+		</div>
+		<div id="content">
+			<h1>Средство запуска SQL-запросов</h1>
+			<p>Введите свой SLQ-запрос в это поле:</p>
+			<form action="/ch5.5/scripts/run_query.php" method="POST" accept-charset="utf-8">
+				<fieldset>
+					<textarea id="query_text" name="query" cols="80" row="20"></textarea>
+				</fieldset>
+				<br>
+				<fieldset class="center">
+					<input type="submit" value="Запуск запроса">
+					<input type="reset" value="Очистка и перезапуск">
+				</fieldset>
+			</form>
+		</div>
+	</body>
+</html>
