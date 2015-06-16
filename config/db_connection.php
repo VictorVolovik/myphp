@@ -7,6 +7,4 @@
 		printf("Ошибка подключения: %s\n", mysqli_connect_error());
 		exit();
 	}
-
-	echo "<p>Вы подключены к MySQL с использованием базы данных " . DATABASE_NAME . "</p>";
 ?>
