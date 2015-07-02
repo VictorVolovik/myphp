@@ -2,20 +2,22 @@
 	require_once '../config/app_config.php';
 	require_once '../config/db_connection.php';
 
+	$user_pic = $_FILES['user_pic'];
 	$upload_dir = HOST_WWW_ROOT . "uploads/profile_pics/";
-	$upload_file = $upload_dir . basename($_FILES['user_pic']['name']);
+	$upload_file = $upload_dir . basename($user_pic['name']);
 
 	//потенциальные ошибки отправки файлов
 	$php_errors = [
 		1 => "Превышен максимальный развмер файла, указанный в php.ini",
 		2 => "Превышен максимальный развмер файла, указанный в форме HTML",
 		3 => "Произошла ошибка при передаче файла",
-		4 => "Файл для отправки не был выбра"
+		4 => "Файл для отправки не был выбран"
 	];
 
 	$first_name = trim($_REQUEST['first_name']);
 	$last_name = trim($_REQUEST['last_name']);
 	$email = trim($_REQUEST['email']);
+	$bio = trim($_REQUEST['bio']);
 
 	$facebook_url = str_replace("facebook.org", "facebook.com",
 								trim($_REQUEST['facebook_url']));
@@ -30,16 +32,29 @@
 		$twitter_handle = substr($twitter_handle, $position + 1);
 	}
 
-	//проверка отсутсивя ошибки при отправке изображения
-	$result = move_uploaded_file($_FILES['user_pic']['tmp_name'], $upload_file);
-
+	//проверка отсутствия ошибок при отправке изображения
+	$result = $user_pic['error'];
+	if($result) {
+		handle_error("сервер не может получить выбранное вами изображение.", $php_errors[$user_pic['error']]);
+		exit();
+	}
+	//был ли отправлен именно файл
+	$result = @is_uploaded_file($user_pic['tmp_name']);
 	if(!$result) {
-		handle_error("сервер не может получить выбранное вами изображение.", $php_errors[$_FILES['user_pic']['error']]);
+		handle_error("сервер не может получить выбранный вами файл.",
+		"Запрос на отпраку файла " . "'{$user_pic['name']}'");
+		exit();
+	}
+	//проверка типа файла
+	$result = @getimagesize($user_pic['tmp_name']);
+	if(!$result) {
+		handle_error("сервер не может получить выбранный вами файл, так как он не является изображением.",
+		"{$user_pic['name']} " . "не является изображением.");
 		exit();
 	}
 
-	$bio = trim($_REQUEST['bio']);
 
+	//подготовка SQL-запроса
 	$insert_sql = "INSERT INTO users (first_name,
 									last_name,
 									email,
