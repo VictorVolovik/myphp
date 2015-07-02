@@ -3,7 +3,7 @@
 	const DEBUG_MODE = true;
 
 	const SITE_ROOT = "/";
-	const HOST_WWW_ROOT = "D:/web/openserver/domains/myphp/";
+	const HOST_WWW_ROOT = "d:/web/openserver/domains/myphp/";
 
 	const DATABASE_HOST = "localhost";
 	const DATABASE_USERNAME = "root";
@@ -20,4 +20,8 @@
 		header("Location: " . SITE_ROOT . "scripts/show_error.php?" .
 				"error_message={$user_error_message}&" .
 				"system_error_message={$system_error_message}");
+	}
+
+	function get_web_path($file_system_path) {
+		return str_replace(strtolower($_SERVER['DOCUMENT_ROOT']), '', $file_system_path);
 	}

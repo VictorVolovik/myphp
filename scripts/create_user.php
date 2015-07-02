@@ -69,13 +69,15 @@
 									email,
 									bio,
 									facebook_url,
-									twitter_handle)" .
+									twitter_handle,
+									user_pic_path)" .
 							"VALUES ('{$first_name}',
 									'{$last_name}',
 									'{$email}',
 									'{$bio}',
 									'{$facebook_url}',
-									'{$twitter_handle}'
+									'{$twitter_handle}',
+									'{$upload_file}'
 									);";
 
 	$result = mysqli_query($link, $insert_sql);
