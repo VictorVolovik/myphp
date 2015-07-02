@@ -4,7 +4,6 @@
 
 	$user_pic = $_FILES['user_pic'];
 	$upload_dir = HOST_WWW_ROOT . "uploads/profile_pics/";
-	$upload_file = $upload_dir . basename($user_pic['name']);
 
 	//потенциальные ошибки отправки файлов
 	$php_errors = [
@@ -53,6 +52,16 @@
 		exit();
 	}
 
+	$now = time();
+	while(file_exists($upload_file = $upload_dir . $now . "-" . basename($user_pic['name']))) {
+		$now++;
+	}
+
+	$result = @move_uploaded_file($user_pic['tmp_name'], $upload_file);
+	if(!$result) {
+		handle_error("ошибка сохранения изображения на сервер.", "Файл {$user_pic['name']} не был сохранен.");
+		exit();
+	}
 
 	//подготовка SQL-запроса
 	$insert_sql = "INSERT INTO users (first_name,
