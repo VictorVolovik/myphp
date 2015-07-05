@@ -52,37 +52,18 @@
 		exit();
 	}
 
-	//подготовка SQL-запроса для вставки изображения
 	$now = time();
-	while(file_exists($image_filename = $now . "-" . basename($user_pic['name']))) {
+	while(file_exists($upload_file = $upload_dir . $now . "-" . basename($user_pic['name']))) {
 		$now++;
 	}
-	$image_info = getimagesize($user_pic['tmp_name']);
-	$image_mime_type = $image_info['mime'];
-	$image_size = $user_pic['size'];
-	$image_data = file_get_contents($user_pic['tmp_name']);
 
-	$insert_image_sql = sprintf(
-								"INSERT INTO images (
-										filename,
-										mime_type,
-										file_size,
-										image_data
-										)" .
-								"VALUES ('%s', '%s', '%d', '%s');",
-										mysqli_real_escape_string($link, $image_filename),
-										mysqli_real_escape_string($link, $image_mime_type),
-										mysqli_real_escape_string($link, $image_size),
-										mysqli_real_escape_string($link, $image_data)
-								);
-
-	$result = mysqli_query($link, $insert_image_sql);
+	$result = @move_uploaded_file($user_pic['tmp_name'], $upload_file);
 	if(!$result) {
-		handle_error("oшибка при выполнении запроса в базу данных.", mysqli_error($link));
+		handle_error("ошибка сохранения изображения на сервер.", "Файл {$user_pic['name']} не был сохранен.");
 		exit();
 	}
 
-	//подготовка SQL-запроса для вставки пользователя в базу
+	//подготовка SQL-запроса
 	$insert_sql = sprintf(
 							"INSERT INTO users (
 									first_name,
@@ -91,16 +72,16 @@
 									bio,
 									facebook_url,
 									twitter_handle,
-									profile_pic_id
+									user_pic_path
 									)" .
-							"VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%d');",
+							"VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');",
 								mysqli_real_escape_string($link, $first_name),
 								mysqli_real_escape_string($link, $last_name),
 								mysqli_real_escape_string($link, $email),
 								mysqli_real_escape_string($link, $bio),
 								mysqli_real_escape_string($link, $facebook_url),
 								mysqli_real_escape_string($link, $twitter_handle),
-								mysqli_insert_id($link)
+								mysqli_real_escape_string($link, $upload_file)
 						);
 
 	$result = mysqli_query($link, $insert_sql);
