@@ -1,6 +1,6 @@
 <?php
-	require_once '../config/db_connection.php';
 	require_once '../config/app_config.php';
+	require_once '../config/db_connection.php';
 
 	$user_id = $_REQUEST['user_id'];
 
@@ -16,8 +16,7 @@
 		$facebook_url = $row['facebook_url'];
 		$twitter_handle = $row['twitter_handle'];
 		$twitter_url = "http://www.twitter.com/" . $twitter_handle;
-		$user_image = $row['user_pic_path'];
-		$user_image = get_web_path($user_image);
+		$image_id = $row['profile_pic_id'];
 	} else {
 		handle_error("oшибка при выполнении запроса в базу данных.", "Ошибка обнаружения пользователя с ID {$user_id}");
 		exit();
@@ -40,7 +39,7 @@
 		<div id="content">
 			<div class="user_profile">
 				<h1><?= "$first_name $last_name"; ?></h1>
-				<img src="<?= $user_image; ?>" class="user_pic" alt="<?= "$first_name $last_name"; ?>">
+				<img src="show_image.php?image_id=<?= $image_id; ?>" class="user_pic" alt="<?= "$first_name $last_name"; ?>">
 				<p><?php  echo "$bio"; ?></p>
 				<p class="contact_info">
 					Поддерживайте связь с <?= $first_name; ?>:
