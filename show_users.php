@@ -1,6 +1,7 @@
 <?php
 	require_once 'config/app_config.php';
 	require_once 'config/db_connection.php';
+	require_once 'config/view.php';
 
 	$select_users = "SELECT user_id, first_name, last_name, email FROM users;";
 
@@ -11,37 +12,16 @@
 		exit();
 	}
 
-	if (isset($_REQUEST['success_message'])) {
-		$msg = $_REQUEST['success_message'];
-	}
-?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Пользователи</title>
-		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="css/phpMM.css">
-		<script type="text/javascript">
-		function delete_user(user_id) {
-			if (confirm("Вы уверены, что хотите удалить этого пользователя?" + "\nВернуть его уже не удастаться!")){
-				window.location = "scripts/delete_user.php?user_id=" + user_id;
-			}
+	$delete_user_script = <<<EOD
+	function delete_user(user_id) {
+		if (confirm("Вы уверены, что хотите удалить этого пользователя?" + "Вернуть его уже не удастаться!")){
+			window.location = "scripts/delete_user.php?user_id=" + user_id;
 		}
-
-		<?php if (isset($msg)) { ?>
-			window.onload = function() {
-				alert("<?= $msg ?>");
-			}
-		<?php } ?>
-		</script>
-	</head>
-	<body>
-		<div id="header">
-			<h1>PHP &amp; MySQL: The Missing Manual</h1>
-		</div>
-		<div id="example">
-				Пользователи
-		</div>
+	}
+EOD;
+	page_start("Пользователи", $delete_user_script,
+				$_REQUEST['success_message'], $_REQUEST['error_message']);
+?>
 		<div id="content">
 			<ul>
 				<?php

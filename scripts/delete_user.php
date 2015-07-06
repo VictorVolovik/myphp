@@ -10,7 +10,7 @@
 
 	$result = mysqli_query($link, $delete_query);
 
-	if(!result) {
+	if(!$result || mysqli_affected_rows($link) == 0) {
 		handle_error("oшибка при выполнении запроса в базу данных.", "Ошибка удаления пользователя c ID {$user_id}");
 		exit();
 	}
