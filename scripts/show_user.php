@@ -19,7 +19,7 @@
 		$user_image = $row['user_pic_path'];
 		$user_image = get_web_path($user_image);
 	} else {
-		handle_error("oшибка при выполнении запроса в базу данных.", "Ошибка обнаружения пользователя с ID {$user_id}");
+		handle_error("oшибка при выполнении запроса в базу данных.", "Ошибка обнаружения пользователя с данным ID {$user_id}");
 		exit();
 	}
 ?>

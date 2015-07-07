@@ -1,5 +1,6 @@
 <?php
 	require_once 'config/app_config.php';
+	require_once 'config/authorize.php';
 	require_once 'config/db_connection.php';
 	require_once 'config/view.php';
 
@@ -7,7 +8,7 @@
 
 	$result = mysqli_query($link, $select_users);
 
-	if(!result) {
+	if(!$result) {
 		handle_error("oшибка при выполнении запроса в базу данных.", "Ошибка получения информации о пользователях");
 		exit();
 	}

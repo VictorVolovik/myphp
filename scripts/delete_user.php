@@ -1,5 +1,6 @@
 <?php
 	require_once '../config/app_config.php';
+	require_once '../config/authorize.php';
 	require_once '../config/db_connection.php';
 
 	$user_id = $_REQUEST['user_id'];
@@ -11,7 +12,7 @@
 	$result = mysqli_query($link, $delete_query);
 
 	if(!$result || mysqli_affected_rows($link) == 0) {
-		handle_error("oшибка при выполнении запроса в базу данных.", "Ошибка удаления пользователя c ID {$user_id}");
+		handle_error("oшибка при выполнении запроса в базу данных.", "Ошибка удаления пользователя c данным ID {$user_id}");
 		exit();
 	}
 

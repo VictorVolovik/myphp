@@ -15,6 +15,8 @@
 
 	$first_name = trim($_REQUEST['first_name']);
 	$last_name = trim($_REQUEST['last_name']);
+	$username = trim($_REQUEST['username']);
+	$password = trim($_REQUEST['password']);
 	$email = trim($_REQUEST['email']);
 	$bio = trim($_REQUEST['bio']);
 
@@ -68,15 +70,19 @@
 							"INSERT INTO users (
 									first_name,
 									last_name,
+									username,
+									password,
 									email,
 									bio,
 									facebook_url,
 									twitter_handle,
 									user_pic_path
 									)" .
-							"VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');",
+							"VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');",
 								mysqli_real_escape_string($link, $first_name),
 								mysqli_real_escape_string($link, $last_name),
+								mysqli_real_escape_string($link, $username),
+								mysqli_real_escape_string($link, crypt($password, $username)),
 								mysqli_real_escape_string($link, $email),
 								mysqli_real_escape_string($link, $bio),
 								mysqli_real_escape_string($link, $facebook_url),
