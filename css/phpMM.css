@@ -121,7 +121,8 @@ fieldset br {
   clear: left;
 }
 
-form input, form textarea {
+form input,
+form textarea {
   margin: 5px 0 5px 5px;
 }
 
@@ -228,7 +229,8 @@ div#menu {
   padding: 0 10px;
 }
 
-#menu a, #menu a:visited {
+#menu a,
+#menu a:visited {
   color: #75bb45;
 }
 
