@@ -28,7 +28,7 @@ function display_head($page_title = "", $embedded_javascript = NULL) {
     <title>{$page_title}</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/css/phpMM.css">
-    EOD;
+EOD;
     if (!is_null($embedded_javascript)) {
      echo "<script type='text/javascript'>" .
      $embedded_javascript .
@@ -46,7 +46,7 @@ function display_head($page_title = "", $embedded_javascript = NULL) {
   <div id="example">
    {$title}
  </div>
- EOD;
+EOD;
  display_messages($success_msg, $error_msg);
 }
 

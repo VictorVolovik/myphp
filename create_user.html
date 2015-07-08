@@ -11,6 +11,9 @@
   <script type="text/javascript" src="js/jquery.validate.password.js"></script>
   <script type="text/javascript">
   $(document).ready(function() {
+    jQuery.validator.addMethod("noSpace", function(value, element) {
+      return value.indexOf(" ") < 0 && value != "";
+      }, "Пробелы недопустимы");
     $('#signup_form').validate({
       rules: {
         password: {
@@ -19,6 +22,12 @@
         confirm_password: {
           minlength: 6,
           equalTo: "#password"
+        },
+        username: {
+            required: true,
+            minlength: 2,
+            maxlength:15,
+            noSpace: true
         }
       },
       messages: {
@@ -32,7 +41,7 @@
       }
     });
   });
-  </script>
+</script>
 </head>
 
 <body>
