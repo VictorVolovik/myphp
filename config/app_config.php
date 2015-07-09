@@ -17,7 +17,7 @@ function debug_print($message) {
 }
 
 function handle_error($user_error_message, $system_error_message) {
-  header("Location: " . SITE_ROOT . "scripts/show_error.php?" .
+  header("Location: " . SITE_ROOT . "show_error.php?" .
     "error_message={$user_error_message}&" .
     "system_error_message={$system_error_message}");
 }

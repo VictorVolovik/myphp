@@ -1,10 +1,10 @@
 <?php
 
-require_once 'config/app_config.php';
-require_once 'config/db_connection.php';
-require_once 'config/view.php';
+require_once "config/app_config.php";
+require_once "config/db_connection.php";
+require_once "config/view.php";
 
-$error_message = "";
+$error_message = $_REQUEST['error_message'];
 
 if (!isset($_COOKIE['user_id'])) {
   if(isset($_POST['username'])) {
@@ -22,9 +22,9 @@ if (!isset($_COOKIE['user_id'])) {
    if(mysqli_num_rows($results) == 1) {
     $result = mysqli_fetch_array($results);
     $user_id = $result['user_id'];
-    setrawcookie('user_id', $user_id);
-    setrawcookie('username', $result['username']);
-    header("Location: scripts/show_user.php?user_id=" . $user_id);
+    setcookie('user_id', $user_id);
+    setcookie('username', $result['username']);
+    header("Location: show_user.php?user_id=" . $user_id);
     exit();
   } else {
     $error_message = "Вы дали неверную комбинацию имени пользователя и пароля.";
@@ -55,6 +55,6 @@ page_start("Авторизация", NULL, NULL, $error_message);
 <?php
 } else {
   $user_id = $_COOKIE['user_id'];
-  header("Location: scripts/show_user.php?user_id=" . $user_id);
+  header("Location: show_user.php?user_id=" . $user_id);
   exit();
 }

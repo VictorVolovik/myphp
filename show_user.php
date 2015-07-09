@@ -1,6 +1,8 @@
 <?php
-require_once '../config/app_config.php';
-require_once '../config/db_connection.php';
+require_once "config/app_config.php";
+require_once "config/db_connection.php";
+require_once "config/authorize.php";
+require_once "config/view.php";
 
 $user_id = $_REQUEST['user_id'];
 
@@ -22,21 +24,10 @@ if($result) {
   handle_error("oшибка при выполнении запроса в базу данных.", "Ошибка обнаружения пользователя с данным ID {$user_id}");
   exit();
 }
+
+page_start("Профиль");
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Social</title>
-  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../css/phpMM.css">
-</head>
-<body>
-  <div id="header">
-   <h1>PHP &amp; MySQL: The Missing Manual</h1>
- </div>
- <div id="example">
-   Профиль
- </div>
+
  <div id="content">
    <div class="user_profile">
     <h1><?= "$first_name $last_name"; ?></h1>

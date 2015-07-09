@@ -16,19 +16,20 @@ if(!$result) {
 $delete_user_script = <<<EOD
 function delete_user(user_id) {
   if (confirm("Вы уверены, что хотите удалить этого пользователя?" + "Вернуть его уже не удастаться!")){
-   window.location = "scripts/delete_user.php?user_id=" + user_id;
+   window.location = "delete_user.php?user_id=" + user_id;
  }
 }
 EOD;
 page_start("Пользователи", $delete_user_script,
-  $_REQUEST['success_message'], $_REQUEST['error_message']);
-  ?>
+$_REQUEST['success_message'], $_REQUEST['error_message']);
+?>
+
   <div id="content">
    <ul>
     <?php
     while ($user = mysqli_fetch_array($result)) {
       $user_row = sprintf(
-       "<li><a href='scripts/show_user.php?user_id=%d'>%s %s</a> " .
+       "<li><a href='show_user.php?user_id=%d'>%s %s</a> " .
        "<a href='mailto:%s'>%s</a> " .
        "<a href='javascript:delete_user(%d);'> " .
        "<img class='delete_user' src='images/delete.png' width='15'></a></li>",

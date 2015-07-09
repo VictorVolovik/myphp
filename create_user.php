@@ -1,6 +1,6 @@
 <?php
-require_once '../config/app_config.php';
-require_once '../config/db_connection.php';
+require_once "config/app_config.php";
+require_once "config/db_connection.php";
 
 $user_pic = $_FILES['user_pic'];
 $upload_dir = HOST_WWW_ROOT . "uploads/profile_pics/";
@@ -95,6 +95,6 @@ if(!$result) {
   handle_error("oшибка при выполнении запроса в базу данных.", mysqli_error($link));
   exit();
 }
-
+setcookie('user_id', mysqli_insert_id($link));
 header("Location: show_user.php?user_id=" . mysqli_insert_id($link));
 exit();

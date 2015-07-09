@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
+<?php
+require_once "config/view.php";
 
-<head>
-  <title>Регистрация</title>
-  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="css/phpMM.css">
-  <link rel="stylesheet" type="text/css" href="css/jquery.validate.password.css">
-  <script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
-  <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-  <script type="text/javascript" src="js/jquery.validate.password.js"></script>
-  <script type="text/javascript">
+$inline_javascript = <<<EOD
   $(document).ready(function() {
     jQuery.validator.addMethod("noSpace", function(value, element) {
       return value.indexOf(" ") < 0 && value != "";
@@ -41,21 +33,15 @@
       }
     });
   });
-</script>
-</head>
+EOD;
+page_start("Регистрация пользователя", $inline_javascript);
+?>
 
-<body>
-  <div id="header">
-    <h1>PHP &amp; MySQL: The Missing Manual</h1>
-  </div>
-  <div id="example">
-    Регистрация
-  </div>
   <div id="content">
     <h1>Вступайте в наш виртуальный клуб</h1>
     <p>Пожалуйста, введите ниже свои данные для связи в Интернете:</p>
     <p>Почему бы вам не набрать свое имя для меня:</p>
-    <form id="signup_form" action="scripts/create_user.php" method="POST" enctype="multipart/form-data">
+    <form id="signup_form" action="create_user.php" method="POST" enctype="multipart/form-data">
       <fieldset>
         <label for="first_name">Имя:</label>
         <input type="text" id="first_name" name="first_name" size="20" class="required">

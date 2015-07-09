@@ -1,5 +1,5 @@
 <?php
-require_once '../config/app_config.php';
+require_once "config/app_config.php";
 
 if(isset($_REQUEST['error_message'])){
   $error_message = preg_replace("/\\\\/", ' ', $_REQUEST['error_message']);

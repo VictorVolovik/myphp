@@ -1,5 +1,5 @@
 <?php
-require_once 'app_config.php';
+require_once "app_config.php";
 
 const SUCCESS_MESSAGE = "success";
 const ERROR_MESSAGE = "error";
@@ -28,6 +28,10 @@ function display_head($page_title = "", $embedded_javascript = NULL) {
     <title>{$page_title}</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/css/phpMM.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.validate.password.css">
+    <script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.password.js"></script>
 EOD;
     if (!is_null($embedded_javascript)) {
      echo "<script type='text/javascript'>" .
@@ -46,6 +50,20 @@ EOD;
   <div id="example">
    {$title}
  </div>
+ <div id="menu">
+  <ul>
+     <li><a href="../index.html">Главная страница</a></li>
+EOD;
+  if (isset($_COOKIE['user_id'])) {
+    $user_id = $_COOKIE['user_id'];
+    echo "<li><a href='show_user.php?user_id={$user_id}'>Мой профиль</a></li>";
+    echo "<li><a href='signout.php'>Выйти</a></li>";
+  } else {
+    echo "<li><a href='signin.php'>Войти</a></li>";
+  }
+  echo <<< EOD
+    </ul>
+  </div>
 EOD;
  display_messages($success_msg, $error_msg);
 }
