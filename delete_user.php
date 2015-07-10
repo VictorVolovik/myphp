@@ -3,6 +3,9 @@ require_once "config/app_config.php";
 require_once "config/authorize.php";
 require_once "config/db_connection.php";
 
+authorize_user(["admins"]);
+
+
 $user_id = $_REQUEST['user_id'];
 $current_user = $_COOKIE['user_id'];
 

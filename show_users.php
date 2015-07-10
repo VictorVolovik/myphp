@@ -4,6 +4,8 @@ require_once 'config/authorize.php';
 require_once 'config/db_connection.php';
 require_once 'config/view.php';
 
+authorize_user(["admins"]);
+
 $select_users = "SELECT user_id, first_name, last_name, email FROM users;";
 
 $result = mysqli_query($link, $select_users);
