@@ -2,9 +2,11 @@
 require_once "db_connection.php";
 require_once "app_config.php";
 
+session_start();
+
 function authorize_user($groups = NULL) {
   global $link;
-  if ((!isset($_COOKIE['user_id'])) ||(!strlen($_COOKIE['user_id']) > 0)) {
+  if ((!isset($_SESSION['user_id'])) ||(!strlen($_SESSION['user_id']) > 0)) {
     header("Location: signin.php?error_message=Вам необходимо авторизоваться.");
     exit();
   }
@@ -16,7 +18,7 @@ function authorize_user($groups = NULL) {
   $query_string =
     "SELECT ug.user_id FROM user_groups ug, groups g
     WHERE g.name = '%s' AND g.id = ug.group_id AND ug.user_id = " .
-    mysqli_real_escape_string($link, $_COOKIE['user_id']);
+    mysqli_real_escape_string($link, $_SESSION['user_id']);
 
   foreach ($groups as $group) {
     $query = sprintf($query_string, mysqli_real_escape_string($link, $group));

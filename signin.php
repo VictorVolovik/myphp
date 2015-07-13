@@ -6,7 +6,9 @@ require_once "config/view.php";
 
 $error_message = $_REQUEST['error_message'];
 
-if (!isset($_COOKIE['user_id'])) {
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
   if(isset($_POST['username'])) {
    $username = mysqli_real_escape_string($link, trim($_REQUEST['username']));
    $password = mysqli_real_escape_string($link, trim($_REQUEST['password']));
@@ -22,8 +24,8 @@ if (!isset($_COOKIE['user_id'])) {
    if(mysqli_num_rows($results) == 1) {
     $result = mysqli_fetch_array($results);
     $user_id = $result['user_id'];
-    setcookie('user_id', $user_id);
-    setcookie('username', $result['username']);
+    $_SESSION['user_id'] = $user_id;
+    $_SESSION['username'] = $username;
     header("Location: show_user.php?user_id=" . $user_id);
     exit();
   } else {
@@ -54,7 +56,7 @@ page_start("Авторизация", NULL, NULL, $error_message);
 
 <?php
 } else {
-  $user_id = $_COOKIE['user_id'];
+  $user_id = $_SESSION['user_id'];
   header("Location: show_user.php?user_id=" . $user_id);
   exit();
 }

@@ -1,14 +1,16 @@
 <?php
 require_once "config/app_config.php";
 
-if(isset($_REQUEST['error_message'])){
-  $error_message = preg_replace("/\\\\/", ' ', $_REQUEST['error_message']);
+session_start();
+
+if(isset($_SESSION['error_message'])){
+  $error_message = preg_replace("/\\\\/", ' ', $_SESSION['error_message']);
 } else {
   $error_message = "вы оказались здесь из-за сбоя в работе программы.";
 }
 
-if(isset($_REQUEST['system_error_message'])) {
-  $system_error_message = preg_replace("/\\\\/", ' ', $_REQUEST['system_error_message']);
+if(isset($_SESSION['system_error_message'])) {
+  $system_error_message = preg_replace("/\\\\/", ' ', $_SESSION['system_error_message']);
 } else {
   $system_error_message = "Сообщения о системных ошибках отсутсвуют.";
 }

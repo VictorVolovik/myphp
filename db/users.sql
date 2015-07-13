@@ -22,9 +22,6 @@ CREATE TABLE groups (
 INSERT INTO groups (name, description)
 VALUES ("admins", "Администрация приложения.");
 
-INSERT INTO groups (name, description)
-VALUES ("users", "Пользователи приложения.");
-
 CREATE TABLE user_groups (
   user_id int NOT NULL,
   group_id int NOT NULL

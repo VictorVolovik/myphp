@@ -4,9 +4,15 @@ require_once "config/db_connection.php";
 require_once "config/authorize.php";
 require_once "config/view.php";
 
-authorize_user();
+session_start();
 
 $user_id = $_REQUEST['user_id'];
+
+authorize_user();
+
+if(!isset($user_id)) {
+  $user_id = $_SESSION['user_id'];
+}
 
 $select_query = "SELECT * FROM users WHERE user_id = " . $user_id;
 

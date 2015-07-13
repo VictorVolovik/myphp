@@ -6,6 +6,8 @@ require_once "authorize.php";
 const SUCCESS_MESSAGE = "success";
 const ERROR_MESSAGE = "error";
 
+session_start();
+
 function display_messages($success_msg = NULL, $error_msg = NULL) {
   echo "<div id='messages'>\n";
   if(!is_null($success_msg) && (strlen($success_msg) > 0)) {
@@ -56,8 +58,8 @@ EOD;
       <ul>
         <li><a href="../index.html">Главная страница</a></li>
 EOD;
-   if (isset($_COOKIE['user_id'])) {
-    $user_id = $_COOKIE['user_id'];
+   if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
     echo "<li><a href='show_user.php?user_id={$user_id}'>Мой профиль</a></li>";
     if(user_in_group($user_id, "admins")) {
       echo "<li><a href='show_users.php'>Управление</a></li>";
@@ -79,7 +81,7 @@ function user_in_group($user_id, $group) {
   $query_string =
   "SELECT ug.user_id FROM user_groups ug, groups g
   WHERE g.name = '%s' AND g.id = ug.group_id AND ug.user_id = " .
-  mysqli_real_escape_string($link, $_COOKIE['user_id']);
+  mysqli_real_escape_string($link, $_SESSION['user_id']);
 
   $query = sprintf($query_string,
     mysqli_real_escape_string($link, $group),

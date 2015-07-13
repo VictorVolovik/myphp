@@ -7,7 +7,7 @@ authorize_user(["admins"]);
 
 
 $user_id = $_REQUEST['user_id'];
-$current_user = $_COOKIE['user_id'];
+$current_user = $_SESSION['user_id'];
 
 $delete_query = sprintf(
   "DELETE FROM users WHERE user_id = %d", $user_id
@@ -21,7 +21,7 @@ if(!$result || mysqli_affected_rows($link) == 0) {
 }
 
 if($current_user === $user_id) {
-  setcookie("user_id", "", time()-(365*24*60*60), "/");
+  unset($_SESSION['user_id']);
 }
 
 
