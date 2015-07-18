@@ -6,8 +6,6 @@ require_once "authorize.php";
 const SUCCESS_MESSAGE = "success";
 const ERROR_MESSAGE = "error";
 
-session_start();
-
 function display_messages($success_msg = NULL, $error_msg = NULL) {
   echo "<div id='messages'>\n";
   if(!is_null($success_msg) && (strlen($success_msg) > 0)) {

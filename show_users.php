@@ -22,8 +22,12 @@ function delete_user(user_id) {
  }
 }
 EOD;
+
+$success_message = isset($_REQUEST['success_message']) ? $_REQUEST['success_message'] : NULL;
+$error_message = isset($_REQUEST['error_message']) ? $_REQUEST['error_message'] : NULL;
+
 page_start("Пользователи", $delete_user_script,
-$_REQUEST['success_message'], $_REQUEST['error_message']);
+$success_message, $error_message);
 ?>
 
   <div id="content">

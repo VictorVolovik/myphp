@@ -1,5 +1,7 @@
 CREATE DATABASE `myphp` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
+USE myphp;
+
 CREATE TABLE users (
 user_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 username varchar(32) NOT NULL,

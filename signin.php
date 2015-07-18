@@ -6,8 +6,6 @@ require_once "config/view.php";
 
 $error_message = $_REQUEST['error_message'];
 
-session_start();
-
 if (!isset($_SESSION['user_id'])) {
   if(isset($_POST['username'])) {
    $username = mysqli_real_escape_string($link, trim($_REQUEST['username']));

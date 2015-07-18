@@ -4,8 +4,6 @@ require_once "config/db_connection.php";
 require_once "config/authorize.php";
 require_once "config/view.php";
 
-session_start();
-
 $user_id = $_REQUEST['user_id'];
 
 authorize_user();

@@ -3,11 +3,11 @@
 const DEBUG_MODE = true;
 
 const SITE_ROOT = "/";
-const HOST_WWW_ROOT = "d:/web/openserver/domains/myphp/";
+const HOST_WWW_ROOT = "/var/www/public/";
 
 const DATABASE_HOST = "localhost";
 const DATABASE_USERNAME = "root";
-const DATABASE_PASSWORD = "";
+const DATABASE_PASSWORD = "root";
 const DATABASE_NAME = "myphp";
 
 function debug_print($message) {
