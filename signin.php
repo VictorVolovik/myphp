@@ -4,7 +4,8 @@ require_once "config/app_config.php";
 require_once "config/db_connection.php";
 require_once "config/view.php";
 
-$error_message = $_REQUEST['error_message'];
+
+$error_message = isset($_REQUEST['error_message']) ? $_REQUEST['error_message'] : NULL;
 
 if (!isset($_SESSION['user_id'])) {
   if(isset($_POST['username'])) {
